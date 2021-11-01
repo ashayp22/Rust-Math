@@ -3,7 +3,7 @@
 </h1>
 
 
-<h4 align="center">Team</h4>
+<h4 align="center">CS 199-128 Fall 2021 Final Project</h4>
 
 <p align="center">
   <a href="#background">Background</a> •
@@ -12,17 +12,18 @@
   <a href="#team">Team</a> •
 </p>
 
+
 ## System Overview
 
-MERN is one of the most widely used stacks for modern web development. Composed of [MongoDB](https://www.mongodb.com), [Express](https://expressjs.com), [React](https://reactjs.org), and [Node](https://nodejs.org/en/), MERN represents the full stack from the frontend to the backend.
+TODO
 
-This template is a starting repository for setting up a MERN project. It includes directories for both the frontend and backend, as well as linting and testing workflows and settings.
+## System Overview
+
+TODO
 
 ## Possible Challenges
 
-The latest version of this application can be found at [pineapple.lol](https://pineapple.lol).
-
-To install and set up locally, follow the instructions in the [`/client`](https://github.com/hack4impact-uiuc/mern_template/tree/main/client) and [`/api`](https://github.com/hack4impact-uiuc/mern_template/tree/main/api) directories.
+TODO
 
 ## References
 
