@@ -1,8 +1,5 @@
 <h1 align="center">
-  <a href="https://uiuc.hack4impact.org"><img src="https://raw.githubusercontent.com/hack4impact-uiuc/uiuc.hack4impact.org/master/public/images/colored-logo.svg" alt="hack4impact logo" width="150"></a>
-  <br/>
-  MERN Template
-  </br>
+  Rusty Warriors
 </h1>
 
 
@@ -13,7 +10,6 @@
   <a href="#usage">Usage</a> •
   <a href="#technologies">Technologies</a> •
   <a href="#team">Team</a> •
-  <a href="#license">License</a>
 </p>
 
 ## Background
@@ -52,6 +48,3 @@ This application is built with React, Express, MongoDB, and tested with Cypress 
   </tr>
 </table>
 
-## License
-
-[MIT](https://github.com/hack4impact-uiuc/ymca/blob/master/LICENSE) licensed. Copyright © 2021 [Hack4Impact UIUC](https://github.com/hack4impact-uiuc).
