@@ -3,7 +3,7 @@
 </h1>
 
 
-<h4 align="center">A project by <a href="https://uiuc.hack4impact.org/" target="_blank">Hack4Impact UIUC</a> in collaboration with <a href="https://pineapple.lol" target="_blank">pineapplelol.</a></h4>
+<h4 align="center">Team</h4>
 
 <p align="center">
   <a href="#background">Background</a> •
@@ -32,7 +32,7 @@ This application is built with React, Express, MongoDB, and tested with Cypress 
 
 <table align="center">
   <tr>
-    <td align="center"><a href="https://neeraj.lol"><img src="https://stickershop.line-scdn.net/stickershop/v1/product/1014241/LINEStorePC/main.png" width="75px;" alt="Pusheen"/><br /><b>Pusheen</b></a><br /><sub>Product Manager</sub></td>
+    <td align="center"><a href="https://neeraj.lol"><img src="https://stickershop.line-scdn.net/stickershop/v1/product/1014241/LINEStorePC/main.png" width="75px;" alt="Pusheen"/><br /><b>Ashay Parikh</b></a><br /><sub>ashayp2</sub></td>
     <td align="center"><a href="https://neeraj.lol"><img src="https://stickershop.line-scdn.net/stickershop/v1/sticker/637244/android/sticker.png" width="75px;" alt="Unicorn Pusheen"/><br /><b>Unicorn Pusheen</b></a><br /><sub>Technical Lead</sub></td>
     <td align="center"><a href="https://neeraj.lol"><img src="https://stickershop.line-scdn.net/stickershop/v1/sticker/637275/android/sticker.png" width="75px;" alt="Pilot Pusheen"/><br /><b>Pilot Pusheen</b></a><br /><sub>Product Designer</sub></td>
     <td align="center"><a href="https://neeraj.lol"><img src="https://stickershop.line-scdn.net/stickershop/v1/sticker/637273/android/sticker.png" width="75px;" alt="Angry Pusheen"/><br /><b>Angry Pusheen</b></a><br /><sub>Product Researcher</sub></td>
