@@ -9,7 +9,7 @@
 
 While Rust is known for its focus on speed, memory safety, and parallelism, it isn't known for creating stunning visuals. After watching the [Lecture on Calculating the Julia Set](https://www.youtube.com/watch?v=ifZ5Od92MXY), we decided that we wanted to expand upon the idea of using parallelism, concurrency, and shared memory to create mathematical visualizations. Our objective is to build a website that contains fractals, animations, and other cool visuals. 
 
-## System Overview aka Roadmap
+## ~~System Overview~~ Roadmap
 
 We plan on using [egui](https://github.com/emilk/egui) and [eframe](https://github.com/emilk/egui/tree/master/eframe) to build a GUI using Rust. We will compile our app into Web Assembly so it can be run in the browser. 
 
