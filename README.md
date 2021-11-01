@@ -9,21 +9,25 @@
 
 While Rust is known for its focus on speed, memory safety, and parallelism, it isn't known for creating stunning visuals. After watching the [Lecture on Calculating the Julia Set](https://www.youtube.com/watch?v=ifZ5Od92MXY), we decided that we wanted to expand upon the idea of using parallelism, concurrency, and shared memory to create mathematical visualizations. Our objective is to build a website that contains fractals, animations, and other cool visuals. 
 
-## System Overview
+## System Overview aka Roadmap
 
-We plan on using [egui](https://github.com/emilk/egui) to build a GUI using Rust. We will compile our app into Web Assembly so it can be run in the browser. 
+We plan on using [egui](https://github.com/emilk/egui) and [eframe](https://github.com/emilk/egui/tree/master/eframe) to build a GUI using Rust. We will compile our app into Web Assembly so it can be run in the browser. 
 
-- [asdasd]
-- [asd]
-- [asd]
+- [x] Download an eframe template
+- [ ] Write code for generating a <insert> fractal.
+- [ ] Add controls for customizing fractal generation.
+- [ ] Add other things...
 
 ## Possible Challenges
 
-TODO
+- Speed
+- Math Calculation errors
+- Implementing multithreading
 
 ## References
 
-TODO
+- [egui web demo](https://emilk.github.io/egui/index.html)
+- [fractal trees in rust](https://github.com/redwarp/fractal-trees)
 
 ## Team
 
