@@ -5,13 +5,17 @@
 
 <h4 align="center">CS 199-128 Fall 2021 Final Project</h4>
 
-## Project Introduction
+## Project ~~Introduction~~ Motivation
 
-TODO
+While Rust is known for its focus on speed, memory safety, and parallelism, it isn't known for creating stunning visuals. After watching the [Lecture on Calculating the Julia Set](https://www.youtube.com/watch?v=ifZ5Od92MXY), we decided that we wanted to expand upon the idea of using parallelism, concurrency, and shared memory to create mathematical visualizations. Our objective is to build a website that contains fractals, animations, and other cool visuals. 
 
 ## System Overview
 
-TODO
+We plan on using [egui](https://github.com/emilk/egui) to build a GUI using Rust. We will compile our app into Web Assembly so it can be run in the browser. 
+
+- [asdasd]
+- [asd]
+- [asd]
 
 ## Possible Challenges
 
