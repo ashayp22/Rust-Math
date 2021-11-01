@@ -6,14 +6,14 @@
 <h4 align="center">CS 199-128 Fall 2021 Final Project</h4>
 
 <p align="center">
-  <a href="#background">Background</a> •
-  <a href="#usage">Usage</a> •
+  <a href="#project-introduction">Project Introduction</a> •
+  <a href="#usage">System Overview</a> •
   <a href="#technologies">Technologies</a> •
   <a href="#team">Team</a> •
 </p>
 
 
-## System Overview
+## Project Introduction
 
 TODO
 
