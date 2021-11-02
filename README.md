@@ -13,27 +13,43 @@ While Rust is known for its focus on speed, memory safety, and parallelism, it i
 
 We plan on using [egui](https://github.com/emilk/egui) and [eframe](https://github.com/emilk/egui/tree/master/eframe) to build a GUI using Rust. We will compile our app into Web Assembly so it can be run in the browser. 
 
-Week 1
+Week 1 (11/1)
 
-Week 2
+- [x] 11/1 Group Submission Form  
+- [x] 11/5 Group Idea Form  
 
+- [x] Download an eframe template. 
+- [ ] Clean it up.
+- [ ] Add fractal from egui demo.
 
-Week 3
+Week 2 (11/8)
 
+- [ ] Jimit - Write math algorithm for generating a H-Tree fractal.
+- [ ] Khoa - Write math algorithm for generating a Fibonacci tree.
+- [ ] Ashay - Write math algorithm for generating a Sierpinski Carpet.
 
-...
+Week 3 (11/15)
 
-Week n
+- [ ] 11/15 Checkpoint I
+- [ ] Write code for visualizing fractal using egui.
 
-- [ ] Download an eframe template and clean it up.
-- [ ] Write code for generating a <insert> fractal.
+Week 4 (11/22)
+
 - [ ] Add controls for customizing fractal generation.
-- [ ] Add other things...
+
+Week 5 (11/29)
+
+- [ ] 11/29 Checkpoint II
+- [ ] Add more fractals or math animations.
+
+Week 6 (12/6)
+
+- [ ] 12/8 Final Submission
 
 ## Possible Challenges
 
-- Speed
-- Math Calculation errors
+- Speed with the animation
+- Math Calculation error
 - Implementing multithreading
 
 ## References
