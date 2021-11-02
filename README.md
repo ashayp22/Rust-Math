@@ -13,6 +13,18 @@ While Rust is known for its focus on speed, memory safety, and parallelism, it i
 
 We plan on using [egui](https://github.com/emilk/egui) and [eframe](https://github.com/emilk/egui/tree/master/eframe) to build a GUI using Rust. We will compile our app into Web Assembly so it can be run in the browser. 
 
+Week 1
+
+Week 2
+
+
+Week 3
+
+
+...
+
+Week n
+
 - [ ] Download an eframe template and clean it up.
 - [ ] Write code for generating a <insert> fractal.
 - [ ] Add controls for customizing fractal generation.
