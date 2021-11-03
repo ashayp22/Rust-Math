@@ -19,8 +19,8 @@ Week 1 (11/1)
 - [x] 11/5 Group Idea Form  
 
 - [x] Download an eframe template. 
-- [ ] Clean it up.
-- [ ] Add fractal from egui demo.
+- [x] Clean it up.
+- [x] Add fractal from egui demo.
 
 Week 2 (11/8)
 
