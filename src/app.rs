@@ -141,10 +141,10 @@ impl epi::App for FractalClock {
 
 impl FractalClock {
     pub fn ui(&mut self, ui: &mut Ui, seconds_since_midnight: Option<f64>) {
-        if !self.paused {
-            self.time = seconds_since_midnight.unwrap_or_else(|| ui.input().time);
-            ui.ctx().request_repaint();
-        }
+        // if !self.paused {
+        //     self.time = seconds_since_midnight.unwrap_or_else(|| ui.input().time);
+        //     ui.ctx().request_repaint();
+        // }
 
         let painter = Painter::new(
             ui.ctx().clone(),
@@ -165,17 +165,17 @@ impl FractalClock {
     }
 
     fn options_ui(&mut self, ui: &mut Ui, seconds_since_midnight: Option<f64>) {
-        if seconds_since_midnight.is_some() {
-            ui.label(format!(
-                "Local time: {:02}:{:02}:{:02}.{:03}",
-                (self.time % (24.0 * 60.0 * 60.0) / 3600.0).floor(),
-                (self.time % (60.0 * 60.0) / 60.0).floor(),
-                (self.time % 60.0).floor(),
-                (self.time % 1.0 * 100.0).floor()
-            ));
-        } else {
-            ui.label("The fractal_clock clock is not showing the correct time");
-        };
+        // if seconds_since_midnight.is_some() {
+        //     ui.label(format!(
+        //         "Local time: {:02}:{:02}:{:02}.{:03}",
+        //         (self.time % (24.0 * 60.0 * 60.0) / 3600.0).floor(),
+        //         (self.time % (60.0 * 60.0) / 60.0).floor(),
+        //         (self.time % 60.0).floor(),
+        //         (self.time % 1.0 * 100.0).floor()
+        //     ));
+        // } else {
+        //     ui.label("The fractal_clock clock is not showing the correct time");
+        // };
         ui.label(format!("Painted line count: {}", self.line_count));
 
         ui.checkbox(&mut self.paused, "Paused");
@@ -188,50 +188,20 @@ impl FractalClock {
 
         egui::reset_button(ui, self);
 
-        ui.hyperlink_to(
-            "Inspired by a screensaver by Rob Mayoff",
-            "http://www.dqd.com/~mayoff/programs/FractalClock/",
-        );
+        // ui.hyperlink_to(
+        //     "Inspired by a screensaver by Rob Mayoff",
+        //     "http://www.dqd.com/~mayoff/programs/FractalClock/",
+        // );
     }
 
-    fn paint(&mut self, painter: &Painter) {
-        struct Hand {
-            length: f32,
-            angle: f32,
-            vec: Vec2,
-        }
-
-        impl Hand {
-            fn from_length_angle(length: f32, angle: f32) -> Self {
-                Self {
-                    length,
-                    angle,
-                    vec: length * Vec2::angled(angle),
-                }
-            }
-        }
-
-        let angle_from_period =
-            |period| TAU * (self.time.rem_euclid(period) / period) as f32 - TAU / 4.0;
-
-        let hands = [
-            // Second hand:
-            Hand::from_length_angle(self.length_factor, angle_from_period(60.0)),
-            // Minute hand:
-            Hand::from_length_angle(self.length_factor, angle_from_period(60.0 * 60.0)),
-            // Hour hand:
-            Hand::from_length_angle(0.5, angle_from_period(12.0 * 60.0 * 60.0)),
-        ];
-
+    fn drawtree(&self,  length: f32,  x1: f32,  y1: f32,  angle: f32, painter: &Painter){
         let mut shapes: Vec<Shape> = Vec::new();
-
-        let rect = painter.clip_rect();
-        let to_screen = emath::RectTransform::from_to(
+        let mut paint_line = |points: [Pos2; 2], color: Color32, width: f32| {
+            let rect = painter.clip_rect();
+             let to_screen = emath::RectTransform::from_to(
             Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
             rect,
         );
-
-        let mut paint_line = |points: [Pos2; 2], color: Color32, width: f32| {
             let line = [to_screen * points[0], to_screen * points[1]];
 
             // culling
@@ -239,73 +209,162 @@ impl FractalClock {
                 shapes.push(Shape::line_segment(line, (width, color)));
             }
         };
+        let SCALING_FACTOR = 0.87;
+        let BRANCH_ANGLE = 0.26;//0.26;
+        let MIN_BRANCH_LENGTH = 6.0;
+       let xR=x1+(( angle-BRANCH_ANGLE)*length).cos();
+       let yR=y1-(( angle-BRANCH_ANGLE)*length).sin();
+       let  xL=x1+(( angle+BRANCH_ANGLE)*length).cos();
+       let  yL=y1-(( angle+BRANCH_ANGLE)*length).sin();
+        if length <= MIN_BRANCH_LENGTH
+         {
+            
+            
+            let p1 = pos2(x1, y1,);
+            let p2 = pos2(xR, yR);
+            let p3 = pos2(xL, yL );
 
-        let hand_rotations = [
-            hands[0].angle - hands[2].angle + TAU / 2.0,
-            hands[1].angle - hands[2].angle + TAU / 2.0,
-        ];
+             paint_line([p1, p2], Color32::from_rgb(255, 0, 0), 2.5);
+           paint_line([p1, p3], Color32::from_rgb(255, 0, 0), 2.5);
 
-        let hand_rotors = [
-            hands[0].length * emath::Rot2::from_angle(hand_rotations[0]),
-            hands[1].length * emath::Rot2::from_angle(hand_rotations[1]),
-        ];
+             
+             
+             
+             return;
+         }
+         else
+         {
+            
+            let p1 = pos2(x1, y1,);
+            let p2 = pos2(xR, yR);
+            let p3 = pos2(xL, yL );
 
-        #[derive(Clone, Copy)]
-        struct Node {
-            pos: Pos2,
-            dir: Vec2,
-        }
-
-        let mut nodes = Vec::new();
-
-        let mut width = self.start_line_width;
-
-        for (i, hand) in hands.iter().enumerate() {
-            let center = pos2(0.0, 0.0);
-            let end = center + hand.vec;
-            paint_line([center, end], Color32::from_additive_luminance(255), width);
-            if i < 2 {
-                nodes.push(Node {
-                    pos: end,
-                    dir: hand.vec,
-                });
-            }
-        }
-
-        let mut luminance = 0.7; // Start dimmer than main hands
-
-        let mut new_nodes = Vec::new();
-        for _ in 0..self.depth {
-            new_nodes.clear();
-            new_nodes.reserve(nodes.len() * 2);
-
-            luminance *= self.luminance_factor;
-            width *= self.width_factor;
-
-            let luminance_u8 = (255.0 * luminance).round() as u8;
-            if luminance_u8 == 0 {
-                break;
+            paint_line([p1, p2], Color32::from_rgb(255, 0, 0), 2.5);
+            paint_line([p1, p3], Color32::from_rgb(255, 0, 0), 2.5);
+            self.line_count = shapes.len();
+                painter.extend(shapes);
+                drawTree ( length*SCALING_FACTOR, xR, yR , angle-BRANCH_ANGLE,painter  );
+                drawTree ( length*SCALING_FACTOR, xL, yL , angle+BRANCH_ANGLE, painter);
             }
 
-            for &rotor in &hand_rotors {
-                for a in &nodes {
-                    let new_dir = rotor * a.dir;
-                    let b = Node {
-                        pos: a.pos + new_dir,
-                        dir: new_dir,
-                    };
-                    paint_line(
-                        [a.pos, b.pos],
-                        Color32::from_additive_luminance(luminance_u8),
-                        width,
-                    );
-                    new_nodes.push(b);
-                }
-            }
+    }
 
-            std::mem::swap(&mut nodes, &mut new_nodes);
-        }
-        self.line_count = shapes.len();
-        painter.extend(shapes);
+    fn paint(&mut self, painter: &Painter) {
+        
+        self. drawtree( 25.0,  15.0, 15.0,  0.0, painter);
+
+
+
+        // struct Hand {
+        //     length: f32,
+        //     angle: f32,
+        //     vec: Vec2,
+        // }
+
+        // impl Hand {
+        //     fn from_length_angle(length: f32, angle: f32) -> Self {
+        //         Self {
+        //             length,
+        //             angle,
+        //             vec: length * Vec2::angled(angle),
+        //         }
+        //     }
+        // }
+
+        // let angle_from_period =
+        //     |period| TAU * (self.time.rem_euclid(period) / period) as f32 - TAU / 4.0;
+
+        // let hands = [
+        //     // Second hand:
+        //     Hand::from_length_angle(self.length_factor, angle_from_period(60.0)),
+        //     // Minute hand:
+        //     Hand::from_length_angle(self.length_factor, angle_from_period(60.0 * 60.0)),
+        //     // Hour hand:
+        //     Hand::from_length_angle(0.5, angle_from_period(12.0 * 60.0 * 60.0)),
+        // ];
+
+        // let mut shapes: Vec<Shape> = Vec::new();
+
+        // let rect = painter.clip_rect();
+        // let to_screen = emath::RectTransform::from_to(
+        //     Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
+        //     rect,
+        // );
+
+        
+
+//         let hand_rotations = [
+//             hands[0].angle - hands[2].angle + TAU / 2.0,
+//             hands[1].angle - hands[2].angle + TAU / 2.0,
+//         ];
+
+//         let hand_rotors = [
+//             hands[0].length * emath::Rot2::from_angle(hand_rotations[0]),
+//             hands[1].length * emath::Rot2::from_angle(hand_rotations[1]),
+//         ];
+
+//         #[derive(Clone, Copy)]
+//         struct Node {
+//             pos: Pos2,
+//             dir: Vec2,
+//         }
+
+//         let mut nodes = Vec::new();
+
+//         let mut width = self.start_line_width;
+
+
+//         //
+
+       
+
+// //
+//         for (i, hand) in hands.iter().enumerate() {
+//             let center = pos2(0.0, 0.0);
+//             let end = center + hand.vec;
+//             paint_line([center, end], Color32::from_additive_luminance(255), width);
+//             if i < 2 {
+//                 nodes.push(Node {
+//                     pos: end,
+//                     dir: hand.vec,
+//                 });
+//             }
+//         }
+
+//         let mut luminance = 0.7; // Start dimmer than main hands
+
+//         let mut new_nodes = Vec::new();
+//         for _ in 0..self.depth {
+//             new_nodes.clear();
+//             new_nodes.reserve(nodes.len() * 2);
+
+//             luminance *= self.luminance_factor;
+//             width *= self.width_factor;
+
+//             let luminance_u8 = (255.0 * luminance).round() as u8;
+//             if luminance_u8 == 0 {
+//                 break;
+//             }
+
+//             for &rotor in &hand_rotors {
+//                 for a in &nodes {
+//                     let new_dir = rotor * a.dir;
+//                     let b = Node {
+//                         pos: a.pos + new_dir,
+//                         dir: new_dir,
+//                     };
+//                     paint_line(
+//                         [a.pos, b.pos],
+//                         Color32::from_additive_luminance(luminance_u8),
+//                         width,
+//                     );
+//                     new_nodes.push(b);
+//                 }
+//             }
+
+//             std::mem::swap(&mut nodes, &mut new_nodes);
+//         }
+//         self.line_count = shapes.len();
+//         painter.extend(shapes);
     }
 }
