@@ -31,7 +31,9 @@ Week 2 (11/8)
 Week 3 (11/15)
 
 - [ ] 11/15 Checkpoint I
-- [ ] Write code for visualizing fractal using egui.
+- [x] Ashay - Write code for visualizing fractal using egui.
+- [ ] Khoa - Write code for visualizing fractal using egui.
+- [ ] Jimit - Write code for visualizing fractal using egui.
 
 Week 4 (11/22)
 
