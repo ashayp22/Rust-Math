@@ -26,7 +26,7 @@ Week 2 (11/8)
 
 - [ ] Jimit - Write math algorithm for generating a H-Tree fractal.
 - [ ] Khoa - Write math algorithm for generating a Fibonacci tree.
-- [ ] Ashay - Write math algorithm for generating a Sierpinski Carpet.
+- [x] Ashay - Write math algorithm for generating a Sierpinski Carpet.
 
 Week 3 (11/15)
 
