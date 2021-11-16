@@ -5,7 +5,7 @@ use egui::{containers::*, widgets::*, *};
 #[derive(PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "serde", serde(default))]
-pub struct FractalClock {
+pub struct SierpinskiCarpet {
     paused: bool,
     time: f64,
     zoom: f32,
@@ -19,7 +19,7 @@ pub struct FractalClock {
     last_n: usize
 }
 
-impl Default for FractalClock {
+impl Default for SierpinskiCarpet {
     fn default() -> Self {
         Self {
             paused: false,
@@ -37,9 +37,9 @@ impl Default for FractalClock {
     }
 }
 
-impl epi::App for FractalClock {
+impl epi::App for SierpinskiCarpet {
     fn name(&self) -> &str {
-        "🕑 Fractal Clock"
+        "Sierpinski Carpet"
     }
 
     fn update(&mut self, ctx: &egui::CtxRef, _frame: &mut epi::Frame<'_>) {
@@ -49,7 +49,7 @@ impl epi::App for FractalClock {
     }
 }
 
-impl FractalClock {
+impl SierpinskiCarpet {
     pub fn ui(&mut self, ui: &mut Ui) {
 
         //Don't recalculate if we have the same n
@@ -108,7 +108,7 @@ impl FractalClock {
             if n > 0 {
                 for row in -1..=1 {
                     for col in -1..=1 {
-                        if row != 0 && col != 0 {
+                        if row != 0 || col != 0 {
                             let new_center_x = center_x + (row as f32) * width / 3.0;
                             let new_center_y = center_y + (col as f32) * height / 3.0;
                             sierpinski_carpet(new_center_x, new_center_y, width / 3.0, height / 3.0, n - 1, to_screen, shapes);
@@ -118,42 +118,9 @@ impl FractalClock {
             }
         }
 
-        sierpinski_carpet(400.0, 400.0, 243.0, 243.0, 3, &to_screen, &mut shapes);
+        let num_levels = self.n as i64;
 
-        // let total = self.n;
-
-        //TODO: why do negative numbers don't work?
-        // paint_rect(pos2(0.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::WHITE, &to_screen, &mut shapes);
-        // paint_rect(pos2(10.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::GREEN, &to_screen, &mut shapes);
-        // paint_rect(pos2(20.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::BLUE, &to_screen, &mut shapes);
-        // paint_rect(pos2(-20.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::RED, &to_screen, &mut shapes);
-
-
-        // for i in 0..total+1 {
-        //     let stepdown = num::pow(3, total - i);
-        //     for x in 0..num::pow(3, i) {
-        //         if x % 3 == 0 {
-        //             for y in 0..num::pow(3, i) {
-        //                 if y % 3 == 1 {
-
-        //                     let x_start = (y * stepdown) as f32;
-        //                     let y_start = (x * stepdown) as f32;
-        //                     let x_end = ((y+1) * stepdown) as f32;
-        //                     let y_end = ((x+1) * stepdown) as f32;
-
-        //                     let x_end_shifted = x_end - 100.0;
-        //                     let x_start_shifted = x_start - 100.0;
-
-
-        //                     let start = pos2(x_start_shifted, y_start);
-        //                     let end = vec2(x_end_shifted - x_start_shifted, y_end - y_start);
-        //                     paint_rect(start, end, Color32::WHITE);
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
+        sierpinski_carpet(rect.width() / 2.0, rect.height() / 2.0, 500.0, 500.0, num_levels, &to_screen, &mut shapes);        
         
         painter.extend(shapes);
     }
