@@ -1,7 +1,6 @@
 use eframe::{egui, epi};
 use std::mem::swap;
 use egui::{containers::*, widgets::*, *};
-use std::f32::consts::TAU;
 
 #[derive(PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
@@ -99,20 +98,35 @@ impl FractalClock {
     fn drawtree( &mut self, length: f32, x1: f32, y1: f32, angle: f32,painter: &Painter) {
                    
             
-        let SCALING_FACTOR = 0.87;
-    let BRANCH_ANGLE = 0.26; //0.26;
-    let MIN_BRANCH_LENGTH = 6.0;
-    let xR = x1 + ((angle - BRANCH_ANGLE).cos() * length);
-    let yR = y1 - ((angle - BRANCH_ANGLE).sin() * length);
-    let xL = x1 + ((angle + BRANCH_ANGLE).cos() * length);
-    let yL = y1 - ((angle + BRANCH_ANGLE).sin() * length);
+        let _scaling_factor = 0.87;
+    let _branch_angle = 0.26; //0.26;
+    let _min_branch_length = 6.0;
+    let xr = x1 + ((angle - _branch_angle).cos() * length);
+    let yr = y1 - ((angle - _branch_angle).sin() * length);
+    let xl = x1 + ((angle + _branch_angle).cos() * length);
+    let yl = y1 - ((angle + _branch_angle).sin() * length);
     let p1 = pos2(x1, y1);
-        let p2 = pos2(xR, yR);
-        let p3 = pos2(xL, yL);
+        let p2 = pos2(xr, yr);
+        let p3 = pos2(xl, yl);
       //     print!("{},{}" ,p2.x,p2.y);
         self.paint_line([p1, p2], Color32::from_rgb(255, 0, 0), 30.0, painter );
         self.paint_line([p1, p3], Color32::from_rgb(255, 0, 0), 30.0, painter);
-
+         if length > _min_branch_length{
+                self.drawtree(
+                                    length * _scaling_factor,
+                                    xr,
+                                    yr,
+                                    angle - _branch_angle,
+                                    painter
+                                );
+                                
+                                self.drawtree(
+                                    length * _scaling_factor,
+                                    xl,
+                                    yl,
+                                    angle + _branch_angle,
+                                    painter
+                                ); }
 
        
     }
@@ -134,17 +148,17 @@ impl FractalClock {
         
      self.shapes= Vec::new();
 
-        let rect = painter.clip_rect();
-        let to_screen = emath::RectTransform::from_to(
-            Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
-            rect,
-        );
+      //  let rect = painter.clip_rect();
+        // let to_screen = emath::RectTransform::from_to(
+        //     Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
+        //     rect,
+        // );
 
         
 
        
 //length: f32, x1: f32, y1: f32, angle: f32, to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>
-        self.drawtree(100.0, 100.0, 100.0, 0.0,painter);
+        self.drawtree(10.0, 100.0, 100.0, 0.0,painter);
 
        
         let mut x : std::vec::Vec<Shape> = Vec::new();
