@@ -1,5 +1,4 @@
 use eframe::{egui, epi};
-
 use egui::{containers::*, widgets::*, *};
 
 #[derive(PartialEq)]
@@ -25,13 +24,13 @@ impl Default for FractalClock {
             paused: false,
             time: 0.0,
             zoom: 0.25,
-            start_line_width: 2.5,
+            start_line_width: 0.5,
             depth: 9,
             length_factor: 0.8,
             luminance_factor: 0.8,
             width_factor: 0.9,
             line_count: 0,
-            n: 1,
+            n: 10,
             last_n: 1
         }
     }
@@ -85,76 +84,62 @@ impl FractalClock {
         egui::reset_button(ui, self);
     }
 
-    fn paint(&mut self, painter: &Painter) {
-  
-        let mut shapes: Vec<Shape> = Vec::new();
+    fn paint(&mut self, painter: &Painter) { 
+        let _golden_ratio:f64 = ( 1.0_f64 + 5.0_f64.sqrt() ) / 2.0_f64;
 
+        // struct Dash {
+        //     start: Pos2,
+        //     end: Pos2,
+        //     dir: Vec2,
+        // }
+        
+        //rendering with respect to screen's parameter
+        let mut shapes: Vec<Shape> = Vec::new();
         let rect = painter.clip_rect();
         let to_screen = emath::RectTransform::from_to(
             Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
             rect,
         );
-
-        fn paint_rect(center: Pos2, size: Vec2, color: Color32, _to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>) {
-            let updated_center = center;
-            shapes.push(Shape::rect_filled(Rect::from_center_size(updated_center, size), 0.0, color))
+        
+        //paint lines
+        let mut paint_line = |points: [Pos2; 2], color: Color32, width: f32| {
+            let line = [to_screen * points[0], to_screen * points[1]];
+            shapes.push(Shape::line_segment(line, (width, color)));
+        };
+    
+        let mut s0 = String::from("0");
+        let mut s1 = String::from("01");
+        
+        for _i in 2..self.n {
+            let tmp = String::from(s1.as_str());
+            s1.push_str(&s0);
+            s0 = tmp;
+            
         }
 
-        fn sierpinski_carpet(center_x: f32, center_y: f32, width: f32, height: f32, n: i64, to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>) {
-            
-            //draw in middle square
-            paint_rect(pos2(center_x, center_y), vec2(width / 3.0, height / 3.0), Color32::WHITE, to_screen, shapes);
-            //recurse on 8 other squares 
-            if n > 0 {
-                for row in -1..=1 {
-                    for col in -1..=1 {
-                        if row != 0 && col != 0 {
-                            let new_center_x = center_x + (row as f32) * width / 3.0;
-                            let new_center_y = center_y + (col as f32) * height / 3.0;
-                            sierpinski_carpet(new_center_x, new_center_y, width / 3.0, height / 3.0, n - 1, to_screen, shapes);
-                        }
-                    }
+        let mut curr_pts = pos2(0.0, 0.0);
+        let mut curr_dir = Vec2{x: 1.0, y: 0.0};
+        for (i, c) in s1.chars().enumerate() {
+            let curr_end = curr_pts + curr_dir;
+            paint_line([curr_pts, curr_end], Color32::WHITE, self.start_line_width);
+            curr_pts = curr_end;
+            if c == '0' {
+                if i % 2 == 0 {
+                    curr_dir = Vec2{x: curr_dir.y, y: curr_dir.x};
+                } else {
+                    curr_dir = Vec2{x: -curr_dir.y, y: -curr_dir.x};
                 }
             }
         }
-
-        sierpinski_carpet(400.0, 400.0, 243.0, 243.0, 3, &to_screen, &mut shapes);
-
-        // let total = self.n;
-
-        //TODO: why do negative numbers don't work?
-        // paint_rect(pos2(0.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::WHITE, &to_screen, &mut shapes);
-        // paint_rect(pos2(10.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::GREEN, &to_screen, &mut shapes);
-        // paint_rect(pos2(20.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::BLUE, &to_screen, &mut shapes);
-        // paint_rect(pos2(-20.0, 0.0), vec2(100.0 * (self.n as f32), 100.0 * (self.n as f32)), Color32::RED, &to_screen, &mut shapes);
-
-
-        // for i in 0..total+1 {
-        //     let stepdown = num::pow(3, total - i);
-        //     for x in 0..num::pow(3, i) {
-        //         if x % 3 == 0 {
-        //             for y in 0..num::pow(3, i) {
-        //                 if y % 3 == 1 {
-
-        //                     let x_start = (y * stepdown) as f32;
-        //                     let y_start = (x * stepdown) as f32;
-        //                     let x_end = ((y+1) * stepdown) as f32;
-        //                     let y_end = ((x+1) * stepdown) as f32;
-
-        //                     let x_end_shifted = x_end - 100.0;
-        //                     let x_start_shifted = x_start - 100.0;
-
-
-        //                     let start = pos2(x_start_shifted, y_start);
-        //                     let end = vec2(x_end_shifted - x_start_shifted, y_end - y_start);
-        //                     paint_rect(start, end, Color32::WHITE);
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
-        
         painter.extend(shapes);
+        // let fibonacci_word_fractal = |golden_ratio: f64| {
+            
+        //     let num_dash = self.n;
+        //     for curr_x in 1..num_dash {
+        //         let curr_y:i64 = (golden_ratio - 1.0_f64) * (curr_x as f64).floor();
+        //         let prev_y:i64 = (golden_ratio - 1.0_f64) * (curr_x as f64 - 1.0_f64);
+                
+        //     }
+        // };
     }
 }
