@@ -47,6 +47,7 @@ Week 5 (11/29)
 
 Week 6 (12/6)
 
+- [ ] Documentation
 - [ ] 12/8 Final Submission
 
 ## Possible Challenges
