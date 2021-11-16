@@ -38,6 +38,7 @@ Week 3 (11/15)
 Week 4 (11/22)
 
 - [ ] Add controls for customizing fractal generation.
+- [ ] Combined our fractals into one website.
 
 Week 5 (11/29)
 
