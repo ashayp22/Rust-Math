@@ -15,8 +15,8 @@ pub struct FractalClock {
     luminance_factor: f32,
     width_factor: f32,
     line_count: usize,
-    n: usize,
-    last_n: usize,
+    n: f32,
+    last_n: f32,
     shapes: Vec<Shape>
 }
 
@@ -32,8 +32,8 @@ impl Default for FractalClock {
             luminance_factor: 0.8,
             width_factor: 0.9,
             line_count: 0,
-            n: 1,
-            last_n: 1,
+            n: 1.0,
+            last_n: 1.0,
             shapes:Vec::new()
         }
     }
@@ -90,7 +90,7 @@ impl FractalClock {
 
     fn options_ui(&mut self, ui: &mut Ui) {
         // ui.checkbox(&mut self.paused, "Paused");
-        ui.add(Slider::new(&mut self.n, 1..=15).text("N"));
+        ui.add(Slider::new(&mut self.n, 1.0..=3.0).text("N"));
         // ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
         egui::reset_button(ui, self);
     }
@@ -100,7 +100,7 @@ impl FractalClock {
             
         let _scaling_factor = 0.87;
     let _branch_angle = 0.26; //0.26;
-    let _min_branch_length = 6.0;
+    let _min_branch_length = 20.0*(4.0-self.n);
     let xr = x1 + ((angle - _branch_angle).cos() * length);
     let yr = y1 - ((angle - _branch_angle).sin() * length);
     let xl = x1 + ((angle + _branch_angle).cos() * length);
@@ -109,8 +109,8 @@ impl FractalClock {
         let p2 = pos2(xr, yr);
         let p3 = pos2(xl, yl);
       //     print!("{},{}" ,p2.x,p2.y);
-        self.paint_line([p1, p2], Color32::from_rgb(255, 0, 0), 30.0, painter );
-        self.paint_line([p1, p3], Color32::from_rgb(255, 0, 0), 30.0, painter);
+        self.paint_line([p1, p2], Color32::from_rgb(255, 0, 0), 0.5, painter );
+        self.paint_line([p1, p3], Color32::from_rgb(255, 0, 0), 0.5, painter);
          if length > _min_branch_length{
                 self.drawtree(
                                     length * _scaling_factor,
@@ -145,7 +145,7 @@ impl FractalClock {
         let rect = painter.clip_rect();
 
         //length: f32, x1: f32, y1: f32, angle: f32, to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>
-        self.drawtree(10.0, rect.width() / 2.0, rect.height() / 2.0, 0.0,painter);
+        self.drawtree(100.0, rect.width() / 2.0, rect.height() , 1.5708,painter);
 
        
         let mut x : std::vec::Vec<Shape> = Vec::new();
