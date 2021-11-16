@@ -130,35 +130,22 @@ impl FractalClock {
 
        
     }
-    fn paint_line  (& mut self, points: [Pos2; 2], color: Color32, width: f32,painter: &Painter) {
-        let rect = painter.clip_rect();
-        let to_screen = emath::RectTransform::from_to(
-            Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
-            rect,
-        );
-        let line = [to_screen * points[0], to_screen * points[1]];
 
 
-        
+    fn paint_line (& mut self, points: [Pos2; 2], color: Color32, width: f32, _painter: &Painter) {
+        let line = [points[0], points[1]];
+
         self.shapes.push(Shape::line_segment(line, (width, color)));
-        
     }
 
     fn paint(&mut self, painter: &Painter) {
         
-     self.shapes= Vec::new();
+        self.shapes= Vec::new();
 
-      //  let rect = painter.clip_rect();
-        // let to_screen = emath::RectTransform::from_to(
-        //     Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
-        //     rect,
-        // );
+        let rect = painter.clip_rect();
 
-        
-
-       
-//length: f32, x1: f32, y1: f32, angle: f32, to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>
-        self.drawtree(10.0, 100.0, 100.0, 0.0,painter);
+        //length: f32, x1: f32, y1: f32, angle: f32, to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>
+        self.drawtree(10.0, rect.width() / 2.0, rect.height() / 2.0, 0.0,painter);
 
        
         let mut x : std::vec::Vec<Shape> = Vec::new();
