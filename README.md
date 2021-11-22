@@ -24,16 +24,16 @@ Week 1 (11/1)
 
 Week 2 (11/8)
 
-- [ ] Jimit - Write math algorithm for generating a H-Tree fractal.
-- [ ] Khoa - Write math algorithm for generating a Fibonacci tree.
+- [x] Jimit - Write math algorithm for generating a H-Tree fractal.
+- [x] Khoa - Write math algorithm for generating a Fibonacci tree.
 - [x] Ashay - Write math algorithm for generating a Sierpinski Carpet.
 
 Week 3 (11/15)
 
-- [ ] 11/15 Checkpoint I
+- [x] 11/15 Checkpoint I
 - [x] Ashay - Write code for visualizing fractal using egui.
-- [ ] Khoa - Write code for visualizing fractal using egui.
-- [ ] Jimit - Write code for visualizing fractal using egui.
+- [x] Khoa - Write code for visualizing fractal using egui.
+- [x] Jimit - Write code for visualizing fractal using egui.
 
 Week 4 (11/22)
 
