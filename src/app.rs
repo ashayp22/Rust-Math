@@ -30,7 +30,7 @@ impl Default for FractalClock {
             luminance_factor: 0.8,
             width_factor: 0.9,
             line_count: 0,
-            n: 10,
+            n: 1,
             last_n: 1
         }
     }
@@ -79,7 +79,7 @@ impl FractalClock {
 
     fn options_ui(&mut self, ui: &mut Ui) {
         // ui.checkbox(&mut self.paused, "Paused");
-        ui.add(Slider::new(&mut self.n, 1..=15).text("N"));
+        ui.add(Slider::new(&mut self.n, 1..=20).text("N"));
         // ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
         egui::reset_button(ui, self);
     }
@@ -118,7 +118,7 @@ impl FractalClock {
         }
 
         let mut curr_pts = pos2(0.0, 0.0);
-        let mut curr_dir = Vec2{x: 1.0, y: 0.0};
+        let mut curr_dir = Vec2{x: 0.0, y: 0.01};
         for (i, c) in s1.chars().enumerate() {
             let curr_end = curr_pts + curr_dir;
             paint_line([curr_pts, curr_end], Color32::WHITE, self.start_line_width);
