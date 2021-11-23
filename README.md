@@ -37,9 +37,10 @@ Week 3 (11/15)
 
 Week 4 (11/22)
 
-- [ ] Ashay - Write iterative implementation of Sierpinski Carpet.
-- [ ] Add controls for customizing fractal generation.
-- [ ] Combined our fractals into one website.
+- [x] Add controls for customizing fractal generation.
+- [x] Combined our fractals into one website.
+- [ ] Add more fractals or math animations.
+- [ ] Implement multi-threading
 
 Week 5 (11/29)
 
