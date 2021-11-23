@@ -40,6 +40,7 @@ Week 4 (11/22)
 - [x] Add controls for customizing fractal generation.
 - [x] Combined our fractals into one website.
 - [ ] Documentation.
+- [ ] Format code using RustFMT.
 - [ ] Implement multi-threading
 
 Week 5 (11/29)
