@@ -1,7 +1,7 @@
 [package]
-name = "test_crate"
+name = "rust_math"
 version = "0.1.0"
-authors = ["Emil Ernerfeldt <emilernerfeldt@gmail.com>"]
+authors = ["Ashay Parikk", "Jimit Gosar", "Dang Khoa Pham"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -12,12 +12,9 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 eframe = "0.15.0" # Gives us egui, epi and web+native backends
 
-chrono = { version = "0.4", features = ["js-sys", "wasmbind"], optional = true }
-
 serde = { version = "1", features = ["derive"], optional = true }
 
 [features]
-default = ["chrono"]
 persistence = ["eframe/persistence", "serde"] # Enable if you want to persist app state on shutdown
 
 [profile.release]
