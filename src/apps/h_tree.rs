@@ -1,8 +1,9 @@
 use eframe::{egui, epi};
 use std::mem::swap;
 use egui::{containers::*, widgets::*, *};
-extern crate time;
-use time::PreciseTime;
+
+use std::time::{Duration, Instant};
+//use time::PreciseTime;
 #[derive(PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
 #[cfg_attr(feature = "serde", serde(default))]
@@ -112,7 +113,7 @@ impl HTree {
         egui::reset_button(ui, self);
     }
     
-    fn drawtree( &mut self, length: f32, x1: f32, y1: f32, angle: f32,painter: &Painter, start:PreciseTime ) {
+    fn drawtree( &mut self, length: f32, x1: f32, y1: f32, angle: f32,painter: &Painter, start:Instant ) {
                    
             
         let _scaling_factor = 0.87;
@@ -147,8 +148,8 @@ impl HTree {
                                     start
                                 ); }
          else{
-            let end = PreciseTime::now();
-            println!("{} seconds for single thread.", start.to(end));
+            let end = start.elapsed();
+           // println!("{} seconds for single thread.",end.as_secs());
          }
 
        
@@ -166,7 +167,7 @@ impl HTree {
         self.shapes= Vec::new();
 
         let rect = painter.clip_rect();
-        let start = PreciseTime::now();
+        let start = Instant::now();
 
 
         //length: f32, x1: f32, y1: f32, angle: f32, to_screen: &emath::RectTransform, shapes: &mut Vec<Shape>
