@@ -11,14 +11,14 @@ Fractal Explanation: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_carpet
 
 pub struct SierpinskiCarpet {
     depth: usize, // The level of the recursion when generating the fractal
-    last_depth: usize // The depth of the last drawn fractal
+    last_depth: usize, // The depth of the last drawn fractal
 }
 
 impl Default for SierpinskiCarpet {
     fn default() -> Self {
         Self {
             depth: 1,
-            last_depth: 1
+            last_depth: 1,
         }
     }
 }
@@ -82,8 +82,7 @@ impl SierpinskiCarpet {
 
         // Paints a rectangular given its center and size
         fn paint_rect(center: Pos2, size: Vec2, color: Color32, shapes: &mut Vec<Shape>) {
-            let updated_center = center;
-            shapes.push(Shape::rect_filled(Rect::from_center_size(updated_center, size), 0.0, color))
+            shapes.push(Shape::rect_filled(Rect::from_center_size(center, size), 0.0, color));
         }
 
         // A recursive function for creatng the sierpinski carpet

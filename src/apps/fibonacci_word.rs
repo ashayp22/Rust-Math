@@ -82,7 +82,11 @@ impl FibonacciWord {
         //paint lines
         let mut paint_line = |points: [Pos2; 2], color: Color32, width: f32| {
             let line = [to_screen * points[0], to_screen * points[1]];
-            shapes.push(Shape::line_segment(line, (width, color)));
+
+            // Culling - doesn't render any shapes that are outside of the screen
+            if rect.intersects(Rect::from_two_pos(line[0], line[1])) {
+                shapes.push(Shape::line_segment(line, (width, color)));
+            }
         };
     
         let mut s0 = String::from("0");
