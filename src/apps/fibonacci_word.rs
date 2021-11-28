@@ -2,10 +2,8 @@ use eframe::{egui, epi};
 use egui::{containers::*, widgets::*, *};
 
 #[derive(PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
-#[cfg_attr(feature = "serde", serde(default))]
+
 pub struct FibonacciWord {
-    paused: bool,
     zoom: f32,
     start_line_width: f32,
     n: usize,
@@ -15,7 +13,6 @@ pub struct FibonacciWord {
 impl Default for FibonacciWord {
     fn default() -> Self {
         Self {
-            paused: false,
             zoom: 0.25,
             start_line_width: 0.5,
             n: 1,
@@ -66,8 +63,7 @@ impl FibonacciWord {
     }
 
     fn options_ui(&mut self, ui: &mut Ui) {
-        // ui.checkbox(&mut self.paused, "Paused");
-        ui.add(Slider::new(&mut self.n, 1..=20).text("N"));
+        ui.add(Slider::new(&mut self.n, 1..=40).text("N"));
         ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
         egui::reset_button(ui, self);
     }

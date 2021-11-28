@@ -2,36 +2,23 @@ use eframe::{egui, epi};
 use egui::{containers::*, widgets::*, *};
 
 #[derive(PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
-#[cfg_attr(feature = "serde", serde(default))]
+
+/*
+This file contains the code for recursively generating and then rendering the Sierpinski Carpet.
+Fractal Explanation: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_carpet
+*/
+
+
 pub struct SierpinskiCarpet {
-    paused: bool,
-    time: f64,
-    zoom: f32,
-    start_line_width: f32,
-    depth: usize,
-    length_factor: f32,
-    luminance_factor: f32,
-    width_factor: f32,
-    line_count: usize,
-    n: usize,
-    last_n: usize
+    depth: usize, // The level of the recursion when generating the fractal
+    last_depth: usize // The depth of the last drawn fractal
 }
 
 impl Default for SierpinskiCarpet {
     fn default() -> Self {
         Self {
-            paused: false,
-            time: 0.0,
-            zoom: 0.25,
-            start_line_width: 2.5,
-            depth: 9,
-            length_factor: 0.8,
-            luminance_factor: 0.8,
-            width_factor: 0.9,
-            line_count: 0,
-            n: 1,
-            last_n: 1
+            depth: 1,
+            last_depth: 1
         }
     }
 }
@@ -41,6 +28,7 @@ impl epi::App for SierpinskiCarpet {
         "Sierpinski Carpet"
     }
 
+    // Called every frame
     fn update(&mut self, ctx: &egui::CtxRef, _frame: &mut epi::Frame<'_>) {
         egui::CentralPanel::default()
             .frame(Frame::dark_canvas(&ctx.style()))
@@ -49,10 +37,13 @@ impl epi::App for SierpinskiCarpet {
 }
 
 impl SierpinskiCarpet {
+
+    // Paints the fractal
     pub fn ui(&mut self, ui: &mut Ui) {
 
-        //Don't recalculate if we have the same n
-        if self.last_n == self.n {
+        // If we have the same depth as the last frame, repaint the fractal.
+        // This saves recalulating the fractal. 
+        if self.last_depth == self.depth {
             ui.ctx().request_repaint();
         }
 
@@ -62,6 +53,7 @@ impl SierpinskiCarpet {
             ui.available_rect_before_wrap(),
         );
         self.paint(&painter);
+
         // Make sure we allocate what we used (everything)
         ui.expand_to_include_rect(painter.clip_rect());
 
@@ -73,33 +65,33 @@ impl SierpinskiCarpet {
                     .show(ui, |ui| self.options_ui(ui));
             });
 
-        self.last_n = self.n;
-        
+        self.last_depth = self.depth;
     }
 
+    // An options window for setting the depth of the fractal generation
     fn options_ui(&mut self, ui: &mut Ui) {
-        // ui.checkbox(&mut self.paused, "Paused");
-        ui.add(Slider::new(&mut self.n, 1..=7).text("N"));
-        // ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
+        ui.add(Slider::new(&mut self.depth, 1..=7).text("Depth"));
         egui::reset_button(ui, self);
     }
 
     fn paint(&mut self, painter: &Painter) {
   
-        let mut shapes: Vec<Shape> = Vec::new();
+        let mut shapes: Vec<Shape> = Vec::new(); // A vector of shapes that will be drawn
 
         let rect = painter.clip_rect();
 
+        // Paints a rectangular given its center and size
         fn paint_rect(center: Pos2, size: Vec2, color: Color32, shapes: &mut Vec<Shape>) {
             let updated_center = center;
             shapes.push(Shape::rect_filled(Rect::from_center_size(updated_center, size), 0.0, color))
         }
 
+        // A recursive function for creatng the sierpinski carpet
         fn sierpinski_carpet(center_x: f32, center_y: f32, width: f32, height: f32, n: i64, shapes: &mut Vec<Shape>) {
             
-            //draw in middle square
+            // draw in middle square
             paint_rect(pos2(center_x, center_y), vec2(width / 3.0, height / 3.0), Color32::BLUE, shapes);
-            //recurse on 8 other squares 
+            // recurse on 8 other squares until you hit the base case n = 0
             if n > 0 {
                 for row in -1..=1 {
                     for col in -1..=1 {
@@ -113,10 +105,11 @@ impl SierpinskiCarpet {
             }
         }
 
-        let num_levels = self.n as i64;
-
+        // Generates the fractal in the center of the screen
+        let num_levels = self.depth as i64;
         sierpinski_carpet(rect.width() / 2.0, rect.height() / 2.0, 500.0, 500.0, num_levels, &mut shapes);        
-        
+
+        // Draws the fractal
         painter.extend(shapes);
     }
 }
