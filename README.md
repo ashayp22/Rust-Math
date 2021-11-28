@@ -39,14 +39,14 @@ Week 4 (11/22)
 
 - [x] Add controls for customizing fractal generation.
 - [x] Combined our fractals into one website.
-- [ ] Documentation.
-- [ ] Format code using RustFMT.
-- [ ] Implement multi-threading
+- [x] Documentation.
 
 Week 5 (11/29)
 
 - [ ] 11/29 Checkpoint II
-- [ ] Add more fractals or math animations.
+- [ ] Add 1 more fractal.
+- [ ] Add slides for customizing H-Tree, Fibonacci, and Sierpinski fractals.
+- [ ] Format code using RustFMT.
 
 Week 6 (12/6)
 
