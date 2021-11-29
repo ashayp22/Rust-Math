@@ -63,8 +63,8 @@ impl FibonacciWord {
     }
 
     fn options_ui(&mut self, ui: &mut Ui) {
-        ui.add(Slider::new(&mut self.n, 1..=40).text("N"));
-        ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
+        ui.add(Slider::new(&mut self.n, 1..=30).text("N"));
+        ui.add(Slider::new(&mut self.zoom, 0.005..=1.0).text("zoom"));
         egui::reset_button(ui, self);
     }
 
