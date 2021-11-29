@@ -58,6 +58,7 @@ impl epi::App for WrapApp {
             self.bar_contents(ui, frame);
         });
 
+        // Handles showing the chosen fractal to display
         for (anchor, app) in self.apps.iter_mut() {
             if anchor == self.selected_anchor || ctx.memory().everything_is_visible() {
                 app.update(ctx, frame);
@@ -74,6 +75,7 @@ impl WrapApp {
 
             ui.separator();
 
+            // Handles selecting the chosen fractal
             for (anchor, app) in self.apps.iter_mut() {
                 if ui
                     .selectable_label(self.selected_anchor == anchor, app.name())
