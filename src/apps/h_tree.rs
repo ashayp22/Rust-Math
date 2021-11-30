@@ -5,9 +5,9 @@ use std::mem::swap;
 use std::time::{Duration, Instant};
 //use time::PreciseTime;
 #[derive(PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
-#[cfg_attr(feature = "serde", serde(default))]
+
 pub struct HTree {
+
     paused: bool,
     time: f64,
     zoom: f32,
@@ -17,6 +17,7 @@ pub struct HTree {
     luminance_factor: f32,
     width_factor: f32,
     line_count: usize,
+
     n: f32,
     last_n: f32,
     shapes: Vec<Shape>,
@@ -29,6 +30,7 @@ pub struct HTree {
 impl Default for HTree {
     fn default() -> Self {
         Self {
+
             paused: false,
             time: 0.0,
             zoom: 0.25,
@@ -38,6 +40,7 @@ impl Default for HTree {
             luminance_factor: 0.8,
             width_factor: 0.9,
             line_count: 0,
+
             n: 1.0,
             last_n: 1.0,
             shapes: Vec::new(),
@@ -88,8 +91,8 @@ impl HTree {
     }
 
     fn options_ui(&mut self, ui: &mut Ui) {
-        // ui.checkbox(&mut self.paused, "Paused");
         ui.add(Slider::new(&mut self.n, 1.0..=3.0).text("N"));
+
         ui.add(Slider::new(&mut self._branch_angle, 0.01..=1.0).text("Branch angle"));
         ui.add(Slider::new(&mut self.r, 0..=255).text("r"));
 
@@ -162,6 +165,7 @@ impl HTree {
             //benchmarks that can be printed
             let end = start.elapsed();
             // println!("{} seconds for single thread.",end.as_secs());
+
         }
     }
 
@@ -188,8 +192,10 @@ impl HTree {
             start,
         );
 
+
         let mut x: std::vec::Vec<Shape> = Vec::new();
         swap(&mut x, &mut self.shapes);
         painter.extend(x);
+
     }
 }

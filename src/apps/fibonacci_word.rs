@@ -2,10 +2,8 @@ use eframe::{egui, epi};
 use egui::{containers::*, widgets::*, *};
 
 #[derive(PartialEq)]
-#[cfg_attr(feature = "serde", derive(serde::Deserialize, serde::Serialize))]
-#[cfg_attr(feature = "serde", serde(default))]
+
 pub struct FibonacciWord {
-    paused: bool,
     zoom: f32,
     start_line_width: f32,
     n: usize,
@@ -15,7 +13,6 @@ pub struct FibonacciWord {
 impl Default for FibonacciWord {
     fn default() -> Self {
         Self {
-            paused: false,
             zoom: 0.25,
             start_line_width: 0.5,
             n: 1,
@@ -66,9 +63,8 @@ impl FibonacciWord {
     }
 
     fn options_ui(&mut self, ui: &mut Ui) {
-        // ui.checkbox(&mut self.paused, "Paused");
-        ui.add(Slider::new(&mut self.n, 1..=20).text("N"));
-        ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
+        ui.add(Slider::new(&mut self.n, 1..=30).text("N"));
+        ui.add(Slider::new(&mut self.zoom, 0.005..=1.0).text("zoom"));
         egui::reset_button(ui, self);
     }
 
@@ -86,7 +82,11 @@ impl FibonacciWord {
         //paint lines
         let mut paint_line = |points: [Pos2; 2], color: Color32, width: f32| {
             let line = [to_screen * points[0], to_screen * points[1]];
-            shapes.push(Shape::line_segment(line, (width, color)));
+
+            // Culling - doesn't render any shapes that are outside of the screen
+            if rect.intersects(Rect::from_two_pos(line[0], line[1])) {
+                shapes.push(Shape::line_segment(line, (width, color)));
+            }
         };
     
         let mut s0 = String::from("0");

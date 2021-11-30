@@ -7,7 +7,7 @@
 
 ## Project ~~Introduction~~ Motivation
 
-While Rust is known for its focus on speed, memory safety, and parallelism, it isn't known for creating stunning visuals. After watching the [Lecture on Calculating the Julia Set](https://www.youtube.com/watch?v=ifZ5Od92MXY), we decided that we wanted to expand upon the idea of using parallelism, concurrency, and shared memory to create mathematical visualizations. Our objective is to build a website that contains fractals, animations, and other cool visuals. 
+While Rust is known for its focus on speed, memory safety, and parallelism, it isn't known for creating stunning visuals. After watching the [Lecture on Calculating the Julia Set](https://www.youtube.com/watch?v=ifZ5Od92MXY), we decided that we wanted to expand upon the idea of using Rust to create mathematical visualizations. Our objective is to build a website that contains fractals, animations, and other cool visuals. 
 
 ## ~~System Overview~~ Roadmap
 
@@ -39,14 +39,14 @@ Week 4 (11/22)
 
 - [x] Add controls for customizing fractal generation.
 - [x] Combined our fractals into one website.
-- [ ] Documentation.
-- [ ] Format code using RustFMT.
-- [ ] Implement multi-threading
+- [x] Documentation.
 
 Week 5 (11/29)
 
 - [ ] 11/29 Checkpoint II
-- [ ] Add more fractals or math animations.
+- [ ] Add 1 more fractal.
+- [ ] Add slides for customizing H-Tree, Fibonacci, and Sierpinski fractals.
+- [ ] Format code using RustFMT.
 
 Week 6 (12/6)
 
@@ -57,7 +57,6 @@ Week 6 (12/6)
 
 - Speed with the animation
 - Math Calculation error
-- Implementing multithreading
 
 ## References
 
