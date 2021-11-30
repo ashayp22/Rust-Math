@@ -20,9 +20,9 @@ pub struct Apps {
 impl Apps {
     fn iter_mut(&mut self) -> impl Iterator<Item = (&str, &mut dyn epi::App)> {
         vec![
-            ("htree", &mut self.htree as &mut dyn epi::App),
-            ("fibonacci", &mut self.fibonacci as &mut dyn epi::App),
             ("sierpinski", &mut self.sierpinski as &mut dyn epi::App),
+            ("fibonacci", &mut self.fibonacci as &mut dyn epi::App),
+            ("htree", &mut self.htree as &mut dyn epi::App),
         ]
         .into_iter()
     }

@@ -2,7 +2,7 @@ use eframe::{egui, epi};
 use egui::{containers::*, widgets::*, *};
 use std::mem::swap;
 
-use std::time::{Duration, Instant};
+use std::time::{Instant};
 //use time::PreciseTime;
 #[derive(PartialEq)]
 
@@ -163,7 +163,7 @@ impl HTree {
             );
         } else {
             //benchmarks that can be printed
-            let end = start.elapsed();
+            // let end = start.elapsed();
             // println!("{} seconds for single thread.",end.as_secs());
 
         }

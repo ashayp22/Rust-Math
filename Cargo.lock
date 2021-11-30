@@ -1210,11 +1210,9 @@ name = "rust_math"
 version = "0.1.0"
 dependencies = [
  "eframe",
- "serde",
- "time",
  "getrandom",
  "rand",
-
+ "time",
 ]
 
 [[package]]
