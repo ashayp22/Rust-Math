@@ -14,10 +14,10 @@ eframe = "0.15.0" # Gives us egui, epi and web+native backends
 
 serde = { version = "1", features = ["derive"], optional = true }
 time = "*"
-
+rand = "0.8.4"
 [features]
 persistence = ["eframe/persistence", "serde"] # Enable if you want to persist app state on shutdown
-rand = "0.8.4"
+
 
 
 [profile.release]
