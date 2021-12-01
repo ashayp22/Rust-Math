@@ -5,6 +5,8 @@ use num::complex::Complex;
 #[derive(PartialEq)]
 
 /*
+    Generates the Mandelbrot set, which is the set of complex numbers c 
+    for which the function f(z) = z^2 + c does not diverge to infinity when iterated from z = 0 to infinity.
 
     Sources: 
     https://levelup.gitconnected.com/mandelbrot-set-with-python-983e9fc47f56
@@ -88,6 +90,7 @@ impl Mandelbrot {
     }
 
     // Converts a hsv value, where 0 <= h, s, v <= 1
+    // Source: https://stackoverflow.com/questions/17242144/javascript-convert-hsb-hsv-color-to-rgb-accurately
     fn hsv_to_rgb(&mut self, h: f32, s: f32, v: f32) -> (u8, u8, u8) {
         let mut r = 0.0;
         let mut g = 0.0;

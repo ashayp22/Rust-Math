@@ -77,6 +77,10 @@ impl WrapApp {
 
             ui.separator();
 
+            ui.label("Fractals with Rust & WebAssembly");
+
+            ui.separator();
+
             // Handles selecting the chosen fractal
             for (anchor, app) in self.apps.iter_mut() {
                 if ui
@@ -89,6 +93,7 @@ impl WrapApp {
                     }
                 }
             }
+
         });
     }
 }

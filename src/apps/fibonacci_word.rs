@@ -13,7 +13,7 @@ pub struct FibonacciWord {
 impl Default for FibonacciWord {
     fn default() -> Self {
         Self {
-            zoom: 0.25,
+            zoom: 1.0,
             start_line_width: 0.5,
             n: 1,
             last_n: 1
