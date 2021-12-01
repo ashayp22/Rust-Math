@@ -2,8 +2,7 @@ use eframe::{egui, epi};
 use egui::{containers::*, widgets::*, *};
 use std::mem::swap;
 
-use std::time::{Instant};
-//use time::PreciseTime;
+// use std::time::{ Instant };
 #[derive(PartialEq)]
 
 pub struct HTree {
@@ -54,7 +53,7 @@ impl Default for HTree {
 
 impl epi::App for HTree {
     fn name(&self) -> &str {
-        "Htree"
+        "H Tree"
     }
 
     fn update(&mut self, ctx: &egui::CtxRef, _frame: &mut epi::Frame<'_>) {
@@ -110,11 +109,23 @@ impl HTree {
         y1: f32,
         angle: f32,
         painter: &Painter,
-        start: Instant,
+        // start: Instant,
     ) {
+
         let _scaling_factor = 0.87;
         //min length based on input slider
         let _min_branch_length = 20.0 * (4.0 - self.n);
+
+        let mut curr_r = self.r;
+        let mut curr_g = self.g;
+        let mut curr_b = self.b;
+
+        if length <= _min_branch_length {
+            curr_r = 255 - curr_r;
+            curr_g = 255 - curr_g;
+            curr_b = 255 - curr_b;
+        }
+
         //calculate tip x,y for left and right trees
         let xr = x1 + ((angle - self._branch_angle).cos() * length);
         let yr = y1 - ((angle - self._branch_angle).sin() * length);
@@ -126,23 +137,19 @@ impl HTree {
         // draws two branches
         self.paint_line(
             [p1, p2],
-            Color32::from_rgb(self.r, self.g, self.b),
+            Color32::from_rgb(curr_r, curr_g, curr_b),
             0.5,
             painter,
         );
         self.paint_line(
             [p1, p3],
-            Color32::from_rgb(self.r, self.g, self.b),
+            Color32::from_rgb(curr_r, curr_g, curr_b),
             0.5,
             painter,
         );
         if length > _min_branch_length {
             //change color of leaves
-            if length * _scaling_factor < _min_branch_length {
-                self.r = 255 - self.r;
-                self.g = 255 - self.g;
-                self.b = 255 - self.b;
-            }
+            
             //recursive call to draw next two subtrees
             self.drawtree(
                 length * _scaling_factor,
@@ -150,7 +157,7 @@ impl HTree {
                 yr,
                 angle - self._branch_angle,
                 painter,
-                start,
+                // start,
             );
 
             self.drawtree(
@@ -159,13 +166,12 @@ impl HTree {
                 yl,
                 angle + self._branch_angle,
                 painter,
-                start,
+                // start,
             );
         } else {
             //benchmarks that can be printed
-            // let end = start.elapsed();
+            // let _end = start.elapsed();
             // println!("{} seconds for single thread.",end.as_secs());
-
         }
     }
 
@@ -179,17 +185,17 @@ impl HTree {
         self.shapes = Vec::new();
 
         let rect = painter.clip_rect();
-        let start = Instant::now();
+        // let start = Instant::now();
 
         
         self.drawtree(
             100.0,
             rect.width() / 2.0,
-            rect.height(),
+            2.0 * rect.height() / 3.0,
             //90 degrees in radians so rotation is correct
             1.5708,
             painter,
-            start,
+            // start,
         );
 
 

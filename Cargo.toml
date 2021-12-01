@@ -11,7 +11,8 @@ crate-type = ["cdylib", "rlib"]
 getrandom = { version = "0.2", features = ["js"] }
 eframe = "0.15.0" # Gives us egui, epi and web+native backends
 rand = "0.8.4"
-time = "*"
+
+[features]
 
 [profile.release]
 opt-level = 2 # fast and small wasm
