@@ -15,6 +15,7 @@ pub struct Apps {
     fibonacci: crate::apps::FibonacciWord,
     htree: crate::apps::HTree,
     sierpinski: crate::apps::SierpinskiCarpet,
+    mandelbrot: crate::apps::Mandelbrot,
 }
 
 impl Apps {
@@ -23,6 +24,7 @@ impl Apps {
             ("sierpinski", &mut self.sierpinski as &mut dyn epi::App),
             ("fibonacci", &mut self.fibonacci as &mut dyn epi::App),
             ("htree", &mut self.htree as &mut dyn epi::App),
+            ("mandelbrot", &mut self.mandelbrot as &mut dyn epi::App),
         ]
         .into_iter()
     }
