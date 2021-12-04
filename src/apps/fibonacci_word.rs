@@ -6,9 +6,9 @@ use egui::{containers::*, widgets::*, *};
 pub struct FibonacciWord {
     zoom: f32,
     start_line_width: f32,
-    n: usize,
+    n: u16,
     dir: usize,
-    last_n: usize
+    last_n: u16
 }
 
 impl Default for FibonacciWord {
@@ -66,12 +66,13 @@ impl FibonacciWord {
 
     fn options_ui(&mut self, ui: &mut Ui) {
         ui.add(Slider::new(&mut self.n, 1..=30).text("N"));
-        ui.add(Slider::new(&mut self.zoom, 0.005..=1.0).text("zoom"));
+        // ui.add(Slider::new(&mut self.zoom, 0.005..=1.0).text("zoom"));
         ui.add(Slider::new(&mut self.dir, 1..=4).text("direction"));
         egui::reset_button(ui, self);
     }
-
+    
     fn paint(&mut self, painter: &Painter) { 
+        self.zoom = 1.0_f32 / (4.0_f32 * f32::from(self.n));
         let _golden_ratio:f64 = ( 1.0_f64 + 5.0_f64.sqrt() ) / 2.0_f64;
         
         //rendering with respect to screen's parameter
