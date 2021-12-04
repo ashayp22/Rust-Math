@@ -77,7 +77,7 @@ impl Mandelbrot {
     fn options_ui(&mut self, ui: &mut Ui) {
         ui.add(Slider::new(&mut self.zoom, 0.0000001..=1.0).text("Zoom"));
         ui.add(Slider::new(&mut self.num_pixels, 100.0..=750.0).text("Size"));
-        ui.add(Slider::new(&mut self.max_steps, 25..=255).text("Colors"));
+        ui.add(Slider::new(&mut self.max_steps, 25..=255).text("Change Colors"));
         egui::reset_button(ui, self);
     }
 
