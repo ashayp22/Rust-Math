@@ -8,7 +8,11 @@ pub struct FibonacciWord {
     start_line_width: f32,
     n: u16,
     dir: usize,
+<<<<<<< HEAD
     last_n: u16
+=======
+    last_n: usize,
+>>>>>>> e581047fd15050c75ef0c5aec51fdb89bf234ed1
 }
 
 impl Default for FibonacciWord {
@@ -37,7 +41,6 @@ impl epi::App for FibonacciWord {
 
 impl FibonacciWord {
     pub fn ui(&mut self, ui: &mut Ui) {
-
         //Don't recalculate if we have the same n
         if self.last_n == self.n {
             ui.ctx().request_repaint();
@@ -56,12 +59,10 @@ impl FibonacciWord {
             .stroke(Stroke::none())
             .show(ui, |ui| {
                 ui.set_max_width(270.0);
-                CollapsingHeader::new("Settings")
-                    .show(ui, |ui| self.options_ui(ui));
+                CollapsingHeader::new("Settings").show(ui, |ui| self.options_ui(ui));
             });
 
         self.last_n = self.n;
-        
     }
 
     fn options_ui(&mut self, ui: &mut Ui) {
@@ -82,7 +83,7 @@ impl FibonacciWord {
             Rect::from_center_size(Pos2::ZERO, rect.square_proportions() / self.zoom),
             rect,
         );
-        
+
         //paint lines
         let mut paint_line = |points: [Pos2; 2], color: Color32, width: f32| {
             let line = [to_screen * points[0], to_screen * points[1]];
@@ -92,29 +93,28 @@ impl FibonacciWord {
                 shapes.push(Shape::line_segment(line, (width, color)));
             }
         };
-    
+
         let mut s0 = String::from("0");
         let mut s1 = String::from("01");
-        
+
         for _i in 2..self.n {
             let tmp = String::from(s1.as_str());
             s1.push_str(&s0);
             s0 = tmp;
-            
         }
 
         let mut curr_pts = pos2(0.0, 0.0);
         let mut color = Color32::GREEN;
-        let mut curr_dir = Vec2{x: 0.0, y: 0.01};
+        let mut curr_dir = Vec2 { x: 0.0, y: 0.01 };
         if self.dir == 2 {
             color = Color32::RED;
-            curr_dir = Vec2{x: 0.0, y: -0.01};
+            curr_dir = Vec2 { x: 0.0, y: -0.01 };
         } else if self.dir == 3 {
             color = Color32::YELLOW;
-            curr_dir = Vec2{x: 0.01, y: 0.0};
+            curr_dir = Vec2 { x: 0.01, y: 0.0 };
         } else if self.dir == 4 {
             color = Color32::BLUE;
-            curr_dir = Vec2{x: -0.01, y: 0.0};
+            curr_dir = Vec2 { x: -0.01, y: 0.0 };
         }
         for (i, c) in s1.chars().enumerate() {
             let curr_end = curr_pts + curr_dir;
@@ -122,9 +122,15 @@ impl FibonacciWord {
             curr_pts = curr_end;
             if c == '0' {
                 if i % 2 == 0 {
-                    curr_dir = Vec2{x: curr_dir.y, y: curr_dir.x};
+                    curr_dir = Vec2 {
+                        x: curr_dir.y,
+                        y: curr_dir.x,
+                    };
                 } else {
-                    curr_dir = Vec2{x: -curr_dir.y, y: -curr_dir.x};
+                    curr_dir = Vec2 {
+                        x: -curr_dir.y,
+                        y: -curr_dir.x,
+                    };
                 }
             }
         }

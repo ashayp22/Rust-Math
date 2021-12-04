@@ -43,9 +43,9 @@ Week 4 (11/22)
 
 Week 5 (11/29)
 
-- [ ] 11/29 Checkpoint II
+- [x] 11/29 Checkpoint II
 - [x] Add 1 more fractal.
-- [ ] Add slides for customizing H-Tree, Fibonacci, and Sierpinski fractals.
+- [x] Add slides for customizing H-Tree, Fibonacci, and Sierpinski fractals.
 - [ ] Format code using RustFMT.
 
 Week 6 (12/6)
