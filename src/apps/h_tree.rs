@@ -23,6 +23,7 @@ pub struct HTree {
     r: u8,
     g: u8,
     b: u8,
+    up_down: f32,
 }
 
 impl Default for HTree {
@@ -45,6 +46,7 @@ impl Default for HTree {
             r: 255,
             g: 0,
             b: 0,
+            up_down: 1.0,
         }
     }
 }
@@ -96,7 +98,7 @@ impl HTree {
 
         ui.add(Slider::new(&mut self.g, 0..=255).text("g"));
         ui.add(Slider::new(&mut self.b, 0..=255).text("b"));
-
+        ui.add(Slider::new(&mut self.up_down, 0.1..=2.0).text("Vertical Shift"));
         egui::reset_button(ui, self);
     }
 
@@ -188,7 +190,7 @@ impl HTree {
         self.drawtree(
             100.0,
             rect.width() / 2.0,
-            2.0 * rect.height() / 3.0,
+            2.0 * rect.height() * self.up_down / 3.0,
             //90 degrees in radians so rotation is correct
             1.5708,
             painter,
