@@ -4,12 +4,11 @@ use eframe::{egui, epi};
 #[derive(Default)]
 
 /*
-This file contains a wrapper app for the fractals. It allows the user to 
+This file contains a wrapper app for the fractals. It allows the user to
 switch between the fractals through a nav bar at the top of the screen.
 
-Source: https://github.com/emilk/egui/tree/master/egui_demo_lib 
+Source: https://github.com/emilk/egui/tree/master/egui_demo_lib
 */
-
 
 pub struct Apps {
     fibonacci: crate::apps::FibonacciWord,
@@ -93,7 +92,6 @@ impl WrapApp {
                     }
                 }
             }
-
         });
     }
 }

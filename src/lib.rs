@@ -11,9 +11,9 @@ pub use wrap_app::WrapApp;
 #[cfg(target_arch = "wasm32")]
 use eframe::wasm_bindgen::{self, prelude::*};
 
-/* 
+/*
 This is the entry-point for all Web-Assembly project.
-It is called once from the HTML. 
+It is called once from the HTML.
 It loads the app, installs some callbacks, then returns.
 */
 
