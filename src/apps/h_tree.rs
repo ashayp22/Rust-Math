@@ -6,7 +6,6 @@ use std::mem::swap;
 #[derive(PartialEq)]
 
 pub struct HTree {
-
     paused: bool,
     time: f64,
     zoom: f32,
@@ -29,7 +28,6 @@ pub struct HTree {
 impl Default for HTree {
     fn default() -> Self {
         Self {
-
             paused: false,
             time: 0.0,
             zoom: 0.25,
@@ -90,6 +88,7 @@ impl HTree {
     }
 
     fn options_ui(&mut self, ui: &mut Ui) {
+        //sliders for all the input values
         ui.add(Slider::new(&mut self.n, 1.0..=3.0).text("N"));
 
         ui.add(Slider::new(&mut self._branch_angle, 0.01..=1.0).text("Branch angle"));
@@ -98,7 +97,6 @@ impl HTree {
         ui.add(Slider::new(&mut self.g, 0..=255).text("g"));
         ui.add(Slider::new(&mut self.b, 0..=255).text("b"));
 
-        // ui.add(Slider::new(&mut self.zoom, 0.0..=1.0).text("zoom"));
         egui::reset_button(ui, self);
     }
 
@@ -111,15 +109,15 @@ impl HTree {
         painter: &Painter,
         // start: Instant,
     ) {
-
+        // each branch is 87% of the length as previous
         let _scaling_factor = 0.87;
         //min length based on input slider
         let _min_branch_length = 20.0 * (4.0 - self.n);
 
+        // switches to opposite color if it is the leaf node
         let mut curr_r = self.r;
         let mut curr_g = self.g;
         let mut curr_b = self.b;
-
         if length <= _min_branch_length {
             curr_r = 255 - curr_r;
             curr_g = 255 - curr_g;
@@ -149,7 +147,6 @@ impl HTree {
         );
         if length > _min_branch_length {
             //change color of leaves
-            
             //recursive call to draw next two subtrees
             self.drawtree(
                 length * _scaling_factor,
@@ -187,7 +184,7 @@ impl HTree {
         let rect = painter.clip_rect();
         // let start = Instant::now();
 
-        
+        //initial starting parameters for the tree
         self.drawtree(
             100.0,
             rect.width() / 2.0,
@@ -198,10 +195,8 @@ impl HTree {
             // start,
         );
 
-
         let mut x: std::vec::Vec<Shape> = Vec::new();
         swap(&mut x, &mut self.shapes);
         painter.extend(x);
-
     }
 }
