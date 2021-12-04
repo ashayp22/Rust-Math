@@ -7,6 +7,7 @@ pub struct FibonacciWord {
     zoom: f32,
     start_line_width: f32,
     n: usize,
+    dir: usize,
     last_n: usize
 }
 
@@ -16,7 +17,8 @@ impl Default for FibonacciWord {
             zoom: 1.0,
             start_line_width: 0.5,
             n: 1,
-            last_n: 1
+            dir: 1,
+            last_n: 1,
         }
     }
 }
@@ -65,6 +67,7 @@ impl FibonacciWord {
     fn options_ui(&mut self, ui: &mut Ui) {
         ui.add(Slider::new(&mut self.n, 1..=30).text("N"));
         ui.add(Slider::new(&mut self.zoom, 0.005..=1.0).text("zoom"));
+        ui.add(Slider::new(&mut self.dir, 1..=4).text("direction"));
         egui::reset_button(ui, self);
     }
 
@@ -100,10 +103,21 @@ impl FibonacciWord {
         }
 
         let mut curr_pts = pos2(0.0, 0.0);
+        let mut color = Color32::GREEN;
         let mut curr_dir = Vec2{x: 0.0, y: 0.01};
+        if self.dir == 2 {
+            color = Color32::RED;
+            curr_dir = Vec2{x: 0.0, y: -0.01};
+        } else if self.dir == 3 {
+            color = Color32::YELLOW;
+            curr_dir = Vec2{x: 0.01, y: 0.0};
+        } else if self.dir == 4 {
+            color = Color32::BLUE;
+            curr_dir = Vec2{x: -0.01, y: 0.0};
+        }
         for (i, c) in s1.chars().enumerate() {
             let curr_end = curr_pts + curr_dir;
-            paint_line([curr_pts, curr_end], Color32::GREEN, self.start_line_width);
+            paint_line([curr_pts, curr_end], color, self.start_line_width);
             curr_pts = curr_end;
             if c == '0' {
                 if i % 2 == 0 {
