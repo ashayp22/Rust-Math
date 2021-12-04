@@ -8,11 +8,7 @@ pub struct FibonacciWord {
     start_line_width: f32,
     n: u16,
     dir: usize,
-<<<<<<< HEAD
     last_n: u16
-=======
-    last_n: usize,
->>>>>>> e581047fd15050c75ef0c5aec51fdb89bf234ed1
 }
 
 impl Default for FibonacciWord {
