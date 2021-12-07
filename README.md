@@ -2,8 +2,9 @@
   Rusty Warriors - Fractals with Rust
 </h1>
 
-
 <h4 align="center">CS 199-128 Fall 2021 Final Project</h4>
+
+![Mandelbrot Set](/screenshots/mandelbrot1.png)
 
 ## Project ~~Introduction~~ Motivation
 
