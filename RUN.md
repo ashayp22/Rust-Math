@@ -1,7 +1,7 @@
 Requirements:
 
-Working install of Rust 
-An environment that supports GUIs 
+1. Working install of Rust.
+2. An environment that supports GUIs.
 
 
 How to run:
