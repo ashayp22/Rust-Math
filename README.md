@@ -64,6 +64,17 @@ Week 6 (12/6)
 - [egui web demo](https://emilk.github.io/egui/index.html)
 - [fractal trees in rust](https://github.com/redwarp/fractal-trees)
 
+## Screenshots
+
+#### [Sierpinski Carpet](https://en.wikipedia.org/wiki/Sierpi%C5%84ski_carpet)
+
+![Sierpinski Carpet](/screenshots/sierpinski1.png)
+
+#### [H Tree](https://en.wikipedia.org/wiki/H_tree)
+
+![H Tree](/screenshots/htree1.png)
+
+
 ## Team
 
 <table align="center">
