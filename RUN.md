@@ -11,3 +11,8 @@ How to run:
 3. Run this command: ‘cargo run’
 4. Enjoy playing around with the awesome fractals by changing the sliders in the top left.
  
+ 
+If you want to see the application in the browser:
+
+1. Run the ./setup_web.sh and the ./build-web.sh files in your terminal.
+2. Navigate to http://localhost:8080 in your browser to open the app
