@@ -21,6 +21,8 @@ If you have Rust installed in an environment that supports GUIs:
  
 If you do not have Rust installed in an environment that supports GUI *or* want to see the application in the browser:
  
-1. Run `./setup_web.sh`
-2. Run `./build-web.sh`
-3. Navigate to http://localhost:8080 in the Google Chrome browser.
+1. `git clone https://github.com/ashayp22/Rust-Math.git`
+2. Change directory into the project folder on a command prompt that has [Cargo](https://doc.rust-lang.org/cargo/). Alternatively, you can open the folder in VS code and open the built in terminal.
+3. Run `./setup_web.sh`
+4. Run `./build-web.sh`
+5. Navigate to http://localhost:8080 in the Google Chrome browser.
