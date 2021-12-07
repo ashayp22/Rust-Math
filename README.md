@@ -1,5 +1,5 @@
 <h1 align="center">
-  Rusty Warriors
+  Rusty Warriors - Fractals with Rust
 </h1>
 
 
